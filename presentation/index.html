@@ -148,7 +148,62 @@ presented by Matt Conrad
             <br />
         </section>
         
+        <section>
+            <p>Back to Databases:</p>
+            <br />
+            <p>Right clicking databases: Properties: noteworthy stuff:</p>
+            <br />
+            <ul class="medium">
+                <li>General: size</li>
+                <li>Files: databases are files, usually two files, data and log</li>
+                <li>Options: Collation, Recovery Model (important!), Compatiblity Level</li>
+                <li>Permissions: Database level permissions, distinct from object level permissions</li>
+                <li>Also, in the pane below the page listing, you’ll see View Connection Properties which is sometimes handy.</li>
+            </ul>
+            <br />
+        </section>
 
+        <section>
+            <p>Another right clicking databases option: Tasks:</p>
+            <br />
+            <p>Tasks has a lot of good stuff tucked away. Let's talk about a few in particular:</p>
+            <br />
+            <ul class="medium">
+                <li>Back Up and Restore are essential, of course. If your DBA does this for you, don't worry about it. If you don't have a DBA, learn how back up and restore work (and schedule regular backups).</li>
+                <li><strong>You must test your backup restore process</strong> to make sure you know how to restore correctly, and that your backup process is valid. Finding out your backups weren't being done correctly <strong>after</strong> you actually need them isn't pretty, and it does happen.</li>
+                <li>Generate Scripts is very good. See that hidden little option that lets you script the data along with the schema.</li>
+                <li>Import Data and Export Data are also good when you need them. Move data in or out of Excel spreadsheets, Access databases, text files, etc.</li>
+            </ul>
+            <br />
+        </section>
+
+        <section>
+            <p>Expanding the database tree:</p>
+            <br />
+            <ul class="medium">
+                <li>Database Diagrams: A db diagram lets you view the table structure for your db as a picture. You can also make database modifications from a db diagram.</li>
+                <li>Tables: System tables (not actually all shown here), file tables (new to me), user tables. Most people most of the time only care about their user tables. Many things you can do from the table listing. Try right clicking a table! Design, Select N, Edit N, Script Table, all very good.</li>
+                <li>Views: System views, user views. (What is a view?) Again, right click a view and see your options.</li>
+                <li>Programmability: Many useful db objects live here. We won’t go over all of them tonight, but the use of stored procedures in particular is quite common.</li>
+                <li>Security: This is db security, not server security. Don’t get them confused. A database user is linked to a server login, but they’re not the same thing. Roles are group permissions that many users can belong to.</li>
+                <li>(a brief discussion of orphaned users after a restore)</li>
+            </ul>
+            <br />
+        </section>
+
+        <section>
+            <p>Useful random stuff:</p>
+            <br />
+            <ul class="medium">
+                <li>Tools - Options, always good to know where your settings are</li>
+                <li>If you're viewing results in text, see Query - Query Options - Results - Text - Max Size.</li>
+                <li>Views: System views, user views. (What is a view?) Again, right click a view and see your options.</li>
+                <li>Template Explorer: handy for beginners. View - Template Explorer</li>
+                <li>Refresh Intellisense (Ctrl-Shift-R)</li>
+                <li>sp_help</li>
+            </ul>
+            <br />
+        </section>
 
         <section>
             <h3>The End!</h3>
