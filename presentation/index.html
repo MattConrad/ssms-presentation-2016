@@ -4,10 +4,10 @@
   <head>
     <meta charset="utf-8">
 
-    <title>Visual Studio 101 and Tips and Tricks</title>
+    <title>Intro to SQL Server Management Studio</title>
 
-    <meta name="description" content="Visual Studio 101 and Tips and Tricks">
-    <meta name="author" content="Visual Studio 101 and Tips and Tricks">
+    <meta name="description" content="Intro to SQL Server Management Studio">
+    <meta name="author" content="Intro to SQL Server Management Studio">
 
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -49,8 +49,9 @@ presented by Matt Conrad
         </section>
 
         <section>
-            <p>SQL Server Management Studio (SSMS): what you probably use for ad-hoc interaction with your database.</p>
-            <p>The query window is the primary piece of SSMS, but there's a lot more.</p>
+            <p>SQL Server Management Studio (SSMS): used for database administration and ad-hoc interaction with your database.</p>
+            <br />
+            <p>Programmers typically use SSMS for testing queries, but there's a lot more.</p>
             <br />
             <p class="small">(Another common way to interact with the db ad-hocly is to use the built in database access tools with Visual Studio. These work similarly to SSMS, and much of tonight's presentation applies to those tools as well.</p>
         </section>
@@ -58,214 +59,95 @@ presented by Matt Conrad
         <section>
             <p>Getting SSMS</p>
             <br />
-            <p class="medium">Happily, Visual Studio Community is now a free download from Microsoft.</p>
             <br />
-            <p class="small">(Visual Studio Community, unlike earlier free versions of Visual Studio, is a full featured package and is good enough for most use cases.)</p>
+            <p class="medium">If you already have a database engine installed (like LocalDB/SQL Server Express that comes with Visual Studio), 
+                you can get SSMS standalone at <a href=" https://msdn.microsoft.com/en-us/library/mt238290.aspx"> https://msdn.microsoft.com/en-us/library/mt238290.aspx</a>.</p>
             <br />
-            <p class="medium">You can download Visual Studio Community 2015 at <a href="https://www.visualstudio.com/vs/community/">https://www.visualstudio.com/vs/community/</a>.</p>
+            <p class="medium">Or you can download SQL Server Developer 
+                edition for free at <a href="https://www.microsoft.com/en-us/sql-server/sql-server-editions-developers">https://www.microsoft.com/en-us/sql-server/sql-server-editions-developers</a>.</p>
+        </section>
+        
+        <section>
+            <p>A quick remark about tonight's presentation:</p>
             <br />
-            <p class="medium">The version of Visual Studio used in the examples tonight is Visual Studio Community 2015.</p>
+            <p class="medium">Like Visual Studio, SSMS is really big. I will be skipping over things that I think are obscure, less important, or that I don't use/don't understand very well. If we pass over some items without remark, that's why. (Probably.)</p>
+            <br />
+            <p class="medium">
+                One significant omission worth mentioning: <strong>SQL Server Agent.</strong>
+                SQL Agent lets you schedule SQL commands to run later, or on a repeated schedule. You’ll probably schedule backups using SQL Agent, 
+                and it tends to accumulate other responsibilities as your system grows. We don't have time to get into Agent tonight, but if you work with
+                SQL Server much, you'll want to get familiar with it.
+            </p>
         </section>
         
         <section>
             <div class="pleft3">
                 <p>The Query Window</p>
                 <br />
+                <ul class="medium">
+                    <li>Enter a query and hit F5 (or Ctrl-E) to run it.</li>
+                    <li>Open new query windows (each with a new active database connection) using Alt-N.</li>
+                    <li>Comments are double dashes. Use Ctrl-K, Ctrl-C as a block comment shortcut</li>
+                    <li>If you highlight part of the text and hit Run, only the highlighted text is run. This is <strong>very handy</strong>.</li>
+                    <li>You can change your results format from grid, to text, to file output.</li>
+                </ul>
             </div>
         </section>
 
-
         <section>
-            <p>A caveat about tonight's presentation</p>
+            <p>Browsing the Object Explorer tree</p>
             <br />
-            <p class="medium">We can't cover everything. Visual Studio is<strong><span style="font-size: 48px;"> big</span></strong>.</p>
+            <p class="medium">First, server level properties:</p>
             <br />
-            <p class="medium">I'm going to focus mostly on things that I use myself and am familiar with, things that I think are good heads-ups for new developers, and of course some little hidden gems tucked away.</p>
-            <br />
-            <p class="medium">This may result in some glaring omissions, but hey, we should leave some things as exercises for the student.</p>
-        </section>
-
-        <section>
-            <p>Let's Do Something With Visual Studio</p>
-            <br />
-            <p class="medium">Our examples tonight will use the completed Contoso University application.</p>
-            <br />
-            <p class="medium">(You can do a tutorial where you build this application a bit at a time, at <a href="https://www.asp.net/mvc/overview/getting-started/getting-started-with-ef-using-mvc/creating-an-entity-framework-data-model-for-an-asp-net-mvc-application">https://www.asp.net/mvc/overview/getting-started/getting-started-with-ef-using-mvc/creating-an-entity-framework-data-model-for-an-asp-net-mvc-application</a>.)</p>
-            <br />
-            <p class="small">(You might notice we're using the 2013 version of the application instead of the 2015 version. This is deliberate, don't sweat it.)</p>
-            <br />
-            <p class="medium">We'll start by opening up this Solution, by clicking on the .sln file, and seeing what's on the screen.</p>
+            <ul class="medium">
+                <li>General: potentially useful stuff you might want to look up</li>
+                <li>Server/Memory: straightforward</li>
+                <li>Security: auth mode, very significant. Note the difference between database and server login info. Also, “sa” user.</li>
+                <li>Database settings: database default locations</li>
+                <li>Permissions: logins can get server level permissions</li>
+            </ul>
         </section>
                 
-        <section data-background-image="./img/opening-cu.png" class="lighttext">
-            <section>
-                <p class="medium">Visual Studio is quite customizable, so what you'll see will probably be somewhat different.</p>
-                <br />
-                <p class="medium">There's several things you're likely to find, though:</p>
-                <br />
-                <ul class="medium">
-                    <li>A Solution Explorer pane docked either on the left or the right</li>
-                    <li>An action menu (File, Edit, View, etc) across the top of the screen</li>
-                    <li>The Quick Launch textbox in the upper right corner.</li>
-                    <li>A Properties pane docked under Solution Explorer</li>
-                    <li>A big tabbed pane (often Output) docked at the bottom</li>
-                </ul>
-                <br />
-                <br />
-                <p class="medium">(we pause here for a brief discussion of dockability and tabbability)</p>
-            </section>
+        <section>
+            <p>Databases folder: a quick stop and we'll return later.</p>
+            <br />
+            <p class="medium">SQL Server has the concept of system databases and user databases</p>
+            <br />
+            <p class="medium">System databases are built in databases used for managing the server itself</p>
+            <br />
+            <p class="medium">User databases are made by programmers to hold customized data. If you're not a DBA, you use user databases.</p>
+            <br />
+            <br />
+            <p class="medium">There's much more to talk about here. We'll come back to this in a while.</p>
         </section>
 
-        <section data-background-image="./img/opening-cu.png" class="lighttext">
-            <section>
-                <p class="medium">Solution Explorer is very important. It shows the files in your solution! Particular things to note:</p>
-                <br />
-                <ul class="medium">
-                    <li>Different projects, and then folders/files, in the tree layout</li>
-                    <li>Show All Files</li>
-                    <li>Search Solution Explorer</li>
-                    <li>Properties and References folders</li>
-                    <li>Source control status indicators</li>
-                    <li>Getting Solution Explorer back after you accidentally close it</li>
-                </ul>
-                <br />
-                <br />
-                <p class="medium">Learn new and exciting things by right-clicking elements in Solution Explorer!</p>
-                <br />
-                <p class="small">(You can right click <strong>all sorts of things</strong> in Visual Studio. If you can interact with it, try right clicking on it and see what pops up.)</p>
-                <br />
-                <br />
-            </section>
+        <section>
+            <p>Security folder:</p>
+            <br />
+            <ul class="medium">
+                <li>Logins: these are <strong>server level</strong> accounts. Database level <em>users</em> are related, but something different.</li>
+                <li>Server Roles: group permissions inside SQL Server, you don't have to apply permissions to every user individually</li>
+            </ul>
+            <br />
         </section>
 
-        <section data-background-image="./img/opening-cu.png" class="lighttext">
-            <section>
-                <p class="medium">Briefly, let's talk about some other visible elements here</p>
-                <br />
-                <ul class="medium">
-                    <li>Properties pane (below Solution Explorer)</li>
-                    <li>Server Explorer and Toolbox (left hand slider)</li>
-                    <li>That big tabbed pane at the bottom that I will call the Output pane but which is often the Errors pane</li>
-                    <li>The customizable toolbar(s) at the top that I never use except to turn off Browser Link</li>
-                </ul>
-                <br />
-                <br />
-            </section>
+        <section>
+            <p>Replication:</p>
+            <br />
+            <p class="medium">Replication copies data from one SQL server to another, to keep data from multiple servers in sync. It's a whole topic of its own.</p>
+            <br />
         </section>
 
-        <section data-background-image="./img/opening-cu.png" class="lighttext">
-            <section>
-                <p class="medium">And we should really touch briefly (<strong>briefly</strong>, there's a lot here) on some of the menu columns at the top . . .</p>
-                <br />
-                <p class="small">Note that these are <strong>context sensitive</strong>.</p>
-                <br />
-            </section>
+        <section>
+            <p>Management:</p>
+            <br />
+            <ul class="medium">
+                <li>SQL Server Logs: Here’s one you’ll probably interact with. If you’re having weird server level issues (SQL Server won’t start, system databases are behaving strangely, etc), you can maybe get a clue from the server logs. Note that if you can’t even connect to SQL Server you can still view the logs from the filesystem, hit Google for “SQL Server log location” for how to find the log files for your SQL Server version.</li>
+                <li>On a full install of SQL Server, there will be more here, like database maintenance plans.</li>
+            </ul>
+            <br />
         </section>
         
-        <section data-background-image="./img/code-file-open.png" class="lighttext">
-            <section>
-                <p class="medium">Let's open up a code file and see some new magic</p>
-                <br />
-                <p class="small">(I won't be showing any GUI designers today. Sorry! They do exist, if you're doing Winforms or sometimes for web dev.)</p>
-                <br />
-                <p class="medium">Many, many things to see here. Let's hit some high points:</p>
-                <ul class="medium">
-                    <li>Right clicking on text elements does stuff!</li>
-                    <li>Go To Line (Ctrl G) (note also line numbers in left hand gutter)</li>
-                    <li>Go To Definition (F12)</li>
-                    <li>Search in File (Ctrl F, or F3) (note case sensitive, regex, match word, set scope)</li>
-                    <li>Replace in File (Ctrl H)</li>
-                    <li>Search (or Replace) in Solution (*), showing multiple results (Ctrl Shift F, Ctrl Shift H)</li>
-                    <li>Find All References</li>
-                </ul>
-            </section>
-        </section>
-
-        <section data-background-image="./img/code-file-open.png" class="lighttext">
-            <section>
-                <p class="medium">Multiple tabs open has a couple of interesting/useful aspects:</p>
-                <br />
-                <ul class="medium">
-                    <li>Reordering tabs by drag and drop</li>
-                    <li>Pinning tabs</li>
-                    <li>Close all but this/close all but pinned</li>
-                    <li>Ctrl F4 closes active tab</li>
-                    <li>Ctrl Tab/Ctrl Shift Tab switches from tab to tab</li>
-                </ul>
-            </section>
-        </section>
-
-        <section data-background-image="./img/code-multi-tabs.png" class="lighttext">
-            <section>
-                <p class="medium">Debugging!</p>
-                <br />
-                <p class="medium">The debugger lets you inspect the internals of your program while it's running. Very useful in finding bugs.</p>
-                <br />
-                <ul class="medium">
-                    <li>Breakpoints, and setting breakpoints (F9)</li>
-                    <li>Run to end or next breakpoint (F5)</li>
-                    <li>Step over (F10)</li>
-                    <li>Step into (F11)</li>
-                    <li>Step out (Shift F11)</li>
-                    <li>Watch panes</li>
-                    <li>Immediate pane</li>
-                </ul>
-            </section>
-        </section>
-
-        <section data-background-image="./img/code-multi-tabs.png" class="lighttext">
-            <section>
-                <p class="medium">Bookmarks and Outlining</p>
-                <p class="small">(discuss keyboard "chords" here)</p>
-                <br />
-                <p class="medium">Bookmarks</p>
-                <ul class="medium">
-                    <li>Toggle Bookmark (Ctrl K, Ctrl K)</li>
-                    <li>Next Bookmark (Ctrl K, Ctrl N)</li>
-                    <li>Previous Bookmark (Ctrl K, Ctrl B)</li>
-                </ul>
-                <br />
-                <br />
-                <p class="medium">Code Folding, er, Outlining</p>
-                <ul class="medium">
-                    <li>Collapse All (Ctrl M, Ctrl O)</li>
-                    <li>Toggle Folding (Ctrl M, Ctrl M)</li>
-                </ul>
-                <br />
-            </section>
-        </section>
-
-        <section data-background-image="./img/code-multi-tabs.png" class="lighttext">
-            <section>
-                <p class="medium">Code Snippets</p>
-                <br />
-                <p class="medium">If, Switch, For and More</p>
-            </section>
-        </section>
-
-        <section data-background-image="./img/code-multi-tabs.png" class="lighttext">
-            <section>
-                <p class="medium">Tips and Tricks We Haven't Covered Yet</p>
-                <br />
-                <ul class="medium">
-                    <li>Search Solution Explorer (Ctrl ;)</li>
-                    <li>Quick Launch (Ctrl Q) and what it does</li>
-                    <li>Navigate to Recent Files (Ctrl ,)</li>
-                    <li>Jump to Matching Bracket/Brace/Paren (Ctrl ])</li>
-                    <li>Move Back/Forward in cursor history (Ctrl -/Ctrl Shift -) (better than you think!)</li>
-                    <li>List of Suggested Actions (Ctrl ./Ctrl Shift .)</li>
-                    <li>Rename (F2 or Ctrl R, Ctrl R)</li>
-                    <li>Go to definition (F12) (repeated cause it's so useful)</li>
-                    <li>Document Outline (Ctrl Alt T) (??? mystery to me)</li>
-                    <li>Properties Pane (F4)</li>
-                    <li>Comment/Uncomment Block (Ctrl K, Ctrl C/Ctrl K, Ctrl U)</li>
-                    <li>Surround With (Ctrl K, Ctrl S)</li>
-                    <li>Generate Method From Call (Alt Shift F10)</li>
-                    <li>Toggle Show Whitespace (Ctrl R, Ctrl W)</li>
-                    <li>Format Document/Format Selection (Ctrl K, Ctrl D/Ctrl K, Ctrl F)</li>
-                </ul>
-            </section>
-        </section>
 
 
         <section>
